@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Be My Valentine?</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             display: flex;
             justify-content: center;
@@ -13,12 +19,15 @@
             background: black;
             margin: 0;
             flex-direction: column;
+            position: relative;
+            overflow: hidden;
         }
+
+        /* Background Grid */
         .grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             grid-template-rows: repeat(2, 1fr);
-            gap: 10px;
             width: 100vw;
             height: 100vh;
             position: absolute;
@@ -26,66 +35,99 @@
             left: 0;
             z-index: -1;
         }
+
         .grid img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: cover; /* Ensures images fit properly */
         }
+
+        /* Cute question box */
         .container {
             text-align: center;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 10px;
+            background: rgba(255, 182, 193, 0.9); /* Soft pink */
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            position: absolute;
+            animation: bounce 1.5s infinite alternate;
         }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(10px); }
+        }
+
         h1 {
             color: white;
-        }
-        button {
             font-size: 28px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Buttons */
+        button {
+            font-size: 18px;
             padding: 10px 20px;
             margin: 10px;
             cursor: pointer;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             transition: 0.3s;
+            font-weight: bold;
         }
+
         .yes {
             background: green;
             color: white;
         }
+
         .no {
             background: red;
             color: white;
         }
+
     </style>
 </head>
 <body>
 
+    <!-- Background Grid -->
     <div class="grid">
-        <img src="File 4.JPG">
-        <img src="File 5.JPG">
-        <img src="File 6.JPG">
-        <img src="File 7.JPG">
-        <img src="File 8.JPG">
-        <img src="File 9.JPG">
+        <img src="Moro1.JPG" alt="Her Image 1">
+        <img src="Moro4.JPG" alt="Her Image 2">
+        <img src="Moro2.JPG" alt="Her Image 3">
+        <img src="Moro2.JPG" alt="Her Image 4">
+        <img src="Moro6.JPG" alt="Her Image 5">
+        <img src="Moro4.JPG" alt="Her Image 6">
     </div>
 
+    <!-- Main Question Box -->
     <div class="container">
-        <h1>My beautiful princess pookie bear will you be my valentine </h1>
+        <h1>Even in the struggles and turbulence of this life i will try my best to stand on my romeo status as such my love, mi amor would you do me the honor of being my valentines for the second year in a row</h1>
         <button class="yes" onclick="goToYes()">Yes</button>
-        <button class="no" onclick="growYes()">No</button>
+        <button class="no" onclick="spawnYesButtons()">No</button>
     </div>
 
     <script>
-        let yesButton = document.querySelector('.yes');
-
-        function growYes() {
-            let currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
-            yesButton.style.fontSize = (currentSize + 5) + "px";
-        }
-
         function goToYes() {
             window.location.href = "yes.html";
+        }
+
+        function spawnYesButtons() {
+            for (let i = 0; i < 4; i++) {
+                let newYes = document.createElement("button");
+                newYes.innerText = "Yes";
+                newYes.classList.add("yes");
+                newYes.onclick = goToYes;
+
+                let x = Math.random() * (window.innerWidth - 100);
+                let y = Math.random() * (window.innerHeight - 50);
+
+                newYes.style.position = "absolute";
+                newYes.style.left = `${x}px`;
+                newYes.style.top = `${y}px`;
+
+                document.body.appendChild(newYes);
+            }
         }
     </script>
 
